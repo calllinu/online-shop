@@ -1,20 +1,29 @@
 import { useEffect, useState } from 'react';
 import styles from './header.module.scss';
-import { AiFillShopping } from 'react-icons/ai';
-import { MdMessage } from 'react-icons/md';
-import { RiAccountCircleFill } from 'react-icons/ri';
-import { AiFillHeart, AiOutlineMenu, AiOutlineHeart } from 'react-icons/ai';
+import { 
+  UserOutlined, 
+  MessageOutlined, 
+  HeartOutlined, 
+  ShoppingCartOutlined, 
+  ShoppingOutlined, 
+  MenuOutlined,
+  HomeOutlined,
+  InboxOutlined,
+  GlobalOutlined,
+  QuestionCircleOutlined,
+  ApartmentOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
+import { Input, Button, Select } from 'antd';
 import { CgProfile } from 'react-icons/cg'
-import { FaShoppingCart } from 'react-icons/fa';
-import { BiHome, BiBox, BiHelpCircle, BiSolidCity } from 'react-icons/bi';
-import { TfiWorld } from 'react-icons/tfi'
-import Select from 'react-select';
 import {
   getDocs,
   collection,
 } from 'firebase/firestore';
-import { database } from '../../firebaseConfig';
+import { database } from '../../firebaseConfig/firebaseConfig';
 import { useClickOutside } from '@mantine/hooks'
+import { Link } from 'react-router-dom'
+import { Col, Row } from 'antd';
 
 interface DataItem {
   id: string,
@@ -30,6 +39,7 @@ interface CategoryData{
 }
 
 function Header() {
+  const { Option } = Select;
   const [data, setData] = useState<DataItem[]>([]);
   const [categories, setCategories] = useState<CategoryData[]>([]);
   const [userLocation, setUserLocation] = useState<string>('');
@@ -37,7 +47,8 @@ function Header() {
   const [loading, setLoading] = useState(true);
   const collectionRef = collection(database, "location-countries");
   const collectionCat = collection(database, "categories");
-  const uniqueCurrencies = [...new Set(data.map((item) => item.currency))];
+  const uniqueCurrencies = [...new Set(data.map((item) => item.currency))]
+      .filter((currency) => currency);
   const country = data.find((item) => item.value === userLocation)?.name;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const ref = useClickOutside(() => setIsSidebarOpen(false))
@@ -96,14 +107,14 @@ function Header() {
 
 
   const sidebarItems = [
-    { text: 'Home', icon: <BiHome size="1.7rem" color="#888686" /> },
-    { text: 'Categories', icon: <AiOutlineMenu size="1.7rem" color="#888686" /> },
-    { text: 'Favorites', icon: <AiOutlineHeart size="1.7rem" color="#888686" /> },
-    { text: 'My orders', icon: <BiBox size="1.7rem" color="#888686" /> },
+    { text: 'Home', icon: <HomeOutlined className={styles.menuIcon} /> },
+    { text: 'Categories', icon: <MenuOutlined className={styles.menuIcon}/> },
+    { text: 'Favorites', icon: <HeartOutlined className={styles.menuIcon}/> },
+    { text: 'My orders', icon: <InboxOutlined className={styles.menuIcon} /> },
     { separator: true },
-    { text: `${country} | ${currencyLocation}`, icon: <TfiWorld size="1.7rem" color="#888686" /> },
-    { text: 'Contact us', icon: <BiHelpCircle size="1.7rem" color="#888686" /> },
-    { text: 'About', icon: <BiSolidCity size="1.7rem" color="#888686" /> },
+    { text: `${country} | ${currencyLocation}`, icon: <GlobalOutlined className={styles.menuIcon}/> },
+    { text: 'Contact us', icon: <QuestionCircleOutlined className={styles.menuIcon} /> },
+    { text: 'About', icon: <ApartmentOutlined className={styles.menuIcon} /> },
     { separator: true }, 
     { text: 'User Agreement', icon: null },
     { text: 'Partnership', icon: null },
@@ -138,65 +149,83 @@ function Header() {
       </div>
     )}      
     <div className={styles.headerTop}>
-      <div className={styles.headerTopLeft}>
-        <div className={styles.iconMenu} onClick={() => setIsSidebarOpen(true)}>
-            <AiOutlineMenu />
-        </div>
-        <div>
-          <AiFillShopping color="#0D6EFD" size="2rem" />
-        </div>
-          <div className={styles.title}>Brand</div>
-        </div>
-        <div className={styles.headerTopCenter}>
-          <div>
-            <input
-              type="text"
-              placeholder="Search..."
-              className={styles.searchInput}
-            />
+    <Row justify="space-between" gutter={[0, 15]} className={styles.row}>
+        <Col span={1} xl={{ order: 1 }} className={styles.headerTopLeft}>
+          <div className={styles.iconMenu} onClick={() => setIsSidebarOpen(true)}>
+              <MenuOutlined/>
           </div>
           <div>
-            <select className={styles.categoryDropdown}>
-              {loading ? (
-                <option value="loading">Loading...</option>
-              ) : (
-                <>
-                  <option value="allCategory" defaultChecked>
-                    All Category
-                  </option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </>
-              )}
-            </select>
+          <Link to="/" className={styles.navLink}>
+            <ShoppingOutlined className={styles.mainIcon}/>  
+            </Link>
+          </div>
+          <Link to="/" className={styles.navLink}>
+            <div className={styles.title}>Brand</div>
+          </Link>
+        </Col>
+          <Col xl={{ order: 2, span: 12, push: 1 }} md={{ order: 3, span: 22, push: 1 }} sm={{order: 3, span: 22, push: 1}} xs={{order: 3, span:24, push: 0}} className={styles.headerTopCenter}>
+          <div>
+          <Input placeholder="Search..." className={styles.searchInput} />
           </div>
           <div>
-            <button className={styles.searchButton}>Search</button>
+          <Select
+              placeholder="Select a category"
+              loading={loading}
+              defaultValue="allCategory"
+              className={styles.categoryDropdown}
+              showSearch
+              bordered={false}
+              filterOption={(input, option) =>
+                option && option.props && option.props.children
+                  ? option.props.children[0].toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  : false
+              }
+            >
+              <Option value="allCategory">All Category</Option>
+              {categories.map((category) => (
+                <Option key={category.id} value={category.id}>
+                  {category.name}
+                </Option>
+              ))}
+          </Select>
           </div>
-        </div>
-        <div className={styles.headerTopRight}>
+          <div>
+          <Button type="primary" icon={<SearchOutlined />} className={styles.searchButton}>
+            Search
+          </Button>
+          </div>
+          </Col>
+        <Col xl={{ order: 3, span: 7 }} lg={{span: 10}} className={styles.headerTopRight}>
           <div className={styles.profileIcon}>
-            <RiAccountCircleFill size="1.4rem" color="#979797" cursor="pointer" />
-            <div className={styles.profileText}>Profile</div>
+            <Link to="/profile" className={styles.navLink}>
+              <UserOutlined className={styles.iconStyle}/>
+              <div className={styles.profileText}>Profile</div>
+            </Link>
           </div>
           <div className={styles.messageIcon}>
-            <MdMessage size="1.4rem" color="#979797" cursor="pointer" />
-            <div>Message</div>
+            <Link to="/messages" className={styles.navLink}>
+              <MessageOutlined className={styles.iconStyle}/>
+              <div>Message</div>
+            </Link>
           </div>
           <div className={styles.ordersIcon}>
-            <AiFillHeart size="1.4rem" color="#979797" cursor="pointer" />
-            <div>Orders</div>
+            <Link to="/orders" className={styles.navLink}>
+              <HeartOutlined className={styles.iconStyle}/>
+              <div>Orders</div>
+            </Link>
           </div>
           <div className={styles.cartIcon}>
-            <FaShoppingCart size="1.4rem" color="#979797" cursor="pointer" />
+          <Link to="/my-cart" className={styles.navLink}>
+            <ShoppingCartOutlined className={styles.iconStyle}/>
             <div className={styles.cartText}>My cart</div>
+          </Link>
           </div>
-        </div>
+          </Col>
+        </Row>
       </div>
       <div className={styles.headerBottom}>
+      <Row justify="center" gutter={[0, 15]} className={styles.row} wrap>
+        <Col>
         <div className={styles.mobileCategories}>
             <div className={styles.mobileItems}>
                   {loading ? (
@@ -215,98 +244,73 @@ function Header() {
                   )}
             </div>
           </div>
+          </Col>
         <div className={styles.headerBottomLeft}>
+          <Col xl={{span: 3.3, order: 1}}>
           <div className={styles.categories}>
-            <AiOutlineMenu />
-            <div>All Categories</div>
+            <MenuOutlined />
+            <div className={styles.categoriesItems}>All Categories</div>
           </div>
-          <div>Hot offers</div>
-          <div>Gift boxes</div>
-          <div>Projects</div>
-          <div>Menu item</div>
-          <div>Help</div>
+          </Col>
+          <Col xl={{span: 3.3, order: 2}}><div className={styles.categoriesItems}>Hot offers</div></Col>
+          <Col xl={{span: 3.3, order: 3}}><div className={styles.categoriesItems}>Gift boxes</div></Col>
+          <Col xl={{span: 3.3, order: 4}}><div className={styles.categoriesItems}>Projects</div></Col>
+          <Col xl={{span: 3.3, order: 5}}><div className={styles.categoriesItems}>Menu item</div></Col>
+          <Col xl={{span: 3.3, order: 6}}><div className={styles.categoriesItems}>Help</div></Col>    
         </div>
         <div className={styles.headerBottomRight}>
+        <Row justify="center">
+            <Col lg={{ span: 12 }}>
         <Select
+            loading={loading}
             className={styles.dropDownShipTo}
+            showSearch
             options={uniqueCurrencies.map((currency) => ({
               value: currency,
-              label: (
-                <div className={styles.values}>{currency}</div>
-              ),
+              label: <div className={styles.values}>{currency}</div>,
             }))}
-            isSearchable={true}
             value={
-              loading
-                ? { value: 'loading', label: 'Searching...' }
-                : userLocation
-                ? {
-                  value: selectedCurrency,
-                  label: (
-                    <div className={styles.values}>
-                      <span>
-                      <span>
-                        {selectedCurrency || (userLocation && data.find((item) => item.value === userLocation)?.currency) || ''}
-                      </span>
-
-                      </span>
-                    </div>
-                  ),
-                }
-                : selectedCurrency && !userLocation
-                ? {
-                  value: selectedCurrency,
-                  label: (
-                    <div className={styles.values}>
-                      <span>{selectedCurrency}</span>
-                    </div>
-                  ),
-                }
-                : null
+              loading ? 
+                "Loading..."
+                : selectedCurrency || (userLocation && data.find((item) => item.value === userLocation)?.currency) || ''
             }
             onChange={(selectedOption) => {
-              if (selectedOption && selectedOption.value !== userLocation) {
-                setSelectedCurrency(selectedOption.value);
+              if (selectedOption) {
+                setSelectedCurrency(selectedOption);
               }
             }}
-            isDisabled={loading}
           />
+          </Col>
+          <Col lg={{ span: 12 }}>
           <Select
+            loading={loading}
             className={styles.dropDownShipTo}
-            options={data.sort((a, b) => a.name.localeCompare(b.name))
+            showSearch
+            options={data
+              .filter((item) => item.name)
+              .sort((a, b) => a.name.localeCompare(b.name))
               .map((item) => ({
-              value: item.value,
-              label: (
-                <div className={styles.values}>
-                  {item.name}
-                  <img src={`./../../src/assets/flags/${item.name.toLocaleLowerCase()}.png`} className={styles.flagIcon} />
-                </div>
-              ),
-            }))}
-            isSearchable={true}
-            value={
-              loading
-                ? { value: 'loading', label: 'Searching...' }
-                : userLocation
-                  ? {
-                      value: userLocation,
-                      label: (
-                        <div className={styles.values}>
-                          <span>{country}</span>
-                          <img src={`./../../src/assets/flags/${country}.png`} className={styles.flagIcon} alt={userLocation} />
-                        </div>
-                      )
-                    }
-                  : null
-            }
+                value: item.value,
+                label: (
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: ".5rem", cursor: "pointer" }}>
+                    {item.name}
+                    <img src={`./../../src/assets/flags/${item.name?.toLowerCase()}.png`} style={{ width: 20, height: 13 }} alt={item.name} />
+                  </div>
+                ),
+              }))}
+            value={loading ? 
+              "Loading..."
+              : userLocation}
             onChange={(selectedOption) => {
-              if (selectedOption !== null) {
-                setUserLocation(selectedOption.value);
+              if (selectedOption) {
+                setUserLocation(selectedOption);
               }
             }}
-            isDisabled={loading}
-          /> 
+          />
+          </Col>
+          </Row>
         </div>
+        </Row>
       </div>
     </div>
   );
