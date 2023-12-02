@@ -69,7 +69,7 @@ export default function Footer() {
   return (
     <div className={styles.footer}>
         <Row justify="space-between" gutter={[0, 10]} className={styles.footerTop}>
-                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}} className={styles.footerTopColumn1st}>
+                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 12}} className={styles.footerTopColumn1st}>
                 <div>
                     <Link to="/" className={styles.navLink}>
                         <ShoppingOutlined className={styles.mainIcon} />
@@ -85,7 +85,7 @@ export default function Footer() {
                     <YoutubeOutlined className={styles.socialIcons} />
                 </div>
                 </Col>
-                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}} className={styles.footerTopOthers}>
+                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 12}} className={styles.footerTopOthers}>
                 <div className={styles.utils}>
                     About
                 </div>
@@ -102,7 +102,7 @@ export default function Footer() {
                     Blogs
                 </div>
                 </Col>
-                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}} className={styles.footerTopOthers}>
+                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 12}} className={styles.footerTopOthers}>
                 <div className={styles.utils}>
                     Partnership
                 </div>
@@ -119,7 +119,7 @@ export default function Footer() {
                     Blogs
                 </div>
                 </Col>
-                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}} className={styles.footerTopOthers}>
+                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 12}} className={styles.footerTopOthers}>
                 <div className={styles.utils}>
                     Information
                 </div>
@@ -136,7 +136,7 @@ export default function Footer() {
                     Contact Us
                 </div>
                 </Col>
-                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}} className={styles.footerTopOthers}>
+                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 12}} className={styles.footerTopOthers}>
                 <div className={styles.utils}>
                     For Users
                 </div>
@@ -153,7 +153,7 @@ export default function Footer() {
                     My Orders
                 </div>
                 </Col>
-                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 24}} className={styles.footerTopOthers}>
+                <Col xl={{span: 4}} md={{span: 8}} sm={{span: 12}} xs={{span: 12}} className={styles.footerTopOthers}>
                     <div className={styles.utils}>
                         Get app
                     </div>
