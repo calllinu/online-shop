@@ -5,8 +5,8 @@ import Orders from './components/orders/Orders';
 //import Profile from './components/profile/Profile';
 import { ConfigProvider} from "antd";
 import {Routes, BrowserRouter, Route } from "react-router-dom";
-import SignUp from './assets/auth/signUp/SignUp';
-import Login from './assets/auth/login/Login';
+import SignUp from './auth/signUp/SignUp';
+import Login from './auth/login/Login';
 
 function App() {
 

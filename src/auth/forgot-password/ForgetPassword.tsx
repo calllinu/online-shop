@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Modal, Form, Input, Button } from 'antd';
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../../firebaseConfig/firebaseConfig";
+import { auth } from "../../firebaseConfig/firebaseConfig";
 
 interface ForgotPasswordModalProps {
   visible: boolean;

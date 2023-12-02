@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import styles from './login.module.scss';
 import { Link } from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons';
-import { auth } from "../../../firebaseConfig/firebaseConfig";
+import { auth } from "../../firebaseConfig/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
