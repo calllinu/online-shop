@@ -197,7 +197,7 @@ function Header() {
           </Col>
         <Col xl={{ order: 3, span: 7 }} lg={{span: 10}} className={styles.headerTopRight}>
           <div className={styles.profileIcon}>
-            <Link to="/profile" className={styles.navLink}>
+            <Link to="/login" className={styles.navLink}>
               <UserOutlined className={styles.iconStyle}/>
               <div className={styles.profileText}>Profile</div>
             </Link>
