@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './header.module.scss';
 import { 
   UserOutlined, 
@@ -16,44 +16,26 @@ import {
 } from '@ant-design/icons';
 import { Input, Button, Select } from 'antd';
 import { CgProfile } from 'react-icons/cg'
-import {
-  getDocs,
-  collection,
-} from 'firebase/firestore';
-import { database } from '../../firebaseConfig/firebaseConfig';
 import { useClickOutside } from '@mantine/hooks'
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'antd';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux-fetching/store';
 
-interface DataItem {
-  id: string,
-  image: string,
-  name: string,
-  value: string,
-  currency: string,
-}
-
-interface CategoryData{
-  id: string,
-  name: string,
-}
 
 function Header() {
+  const categories = useSelector((state: RootState) => state.categories.categories);
+  const loading = useSelector((state: RootState) => state.categories.loading);
+  const data = useSelector((state: RootState) => state.locationCountries.locationCountries);
   const { Option } = Select;
-  const [data, setData] = useState<DataItem[]>([]);
-  const [categories, setCategories] = useState<CategoryData[]>([]);
   const [userLocation, setUserLocation] = useState<string>('');
   const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const collectionRef = collection(database, "location-countries");
-  const collectionCat = collection(database, "categories");
-  const uniqueCurrencies = [...new Set(data.map((item) => item.currency))]
-      .filter((currency) => currency);
-  const country = data.find((item) => item.value === userLocation)?.name;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const ref = useClickOutside(() => setIsSidebarOpen(false))
+  const ref = useClickOutside(() => setIsSidebarOpen(false));
   const currencyLocation = data.find((item) => item.value === userLocation)?.currency;
-  
+  const uniqueCurrencies = [...new Set(data.map((item) => item.currency))]
+  .filter((currency) => currency);
+  const country = data.find((item) => item.value === userLocation)?.name;
 
   const getUserLocation = async () => {
     try {
@@ -65,44 +47,8 @@ function Header() {
     }
   };
 
-  const getData = () => {
-    getDocs(collectionRef)
-      .then((response) => {
-        setLoading(false);
-        const dataArray = response.docs.map((item) => ({
-          ...item.data(),
-          id: item.id,
-        })) as DataItem[]; 
-        setData(dataArray);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error('Error fetching data:', error);
-      });
-  }
-
-  const getCategories = () => {
-    getDocs(collectionCat)
-    .then((response) => {
-      setLoading(false);
-      const categoryData = response.docs.map((item) => ({
-        ...item.data(),
-        id: item.id,
-      })) as CategoryData[];
-      setCategories(categoryData);
-      setLoading(false);
-    })
-    .catch((error) =>{
-      setLoading(false);
-      console.log('Error fetching data:', error);
-    })
-  }
-
   useEffect(() => {
-    getData();
     getUserLocation();
-    getCategories();
   }, []);
 
 
@@ -129,7 +75,7 @@ function Header() {
           <div className={styles.mobileFirstContainer}>
             <div className={styles.profileIcon}><CgProfile size="4rem"/></div>
               <div className={styles.userActions}>
-                <div>Sign In</div>|<div>Register</div>
+                <div>Log In</div>|<div>Register</div>
               </div>
           </div>
         {sidebarItems.map((item, index) => (

@@ -1,0 +1,38 @@
+.mainContainer {
+    width: 97.7%;
+    height: fit-content;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+
+    .containerCategories {
+        width: 20%;
+        padding-right: 1rem;
+
+        .category {
+            padding: 7px;
+            transition: background-color 0.3s ease;
+            border-radius: .5rem;
+            cursor: pointer;
+        }
+
+        :hover {
+            background-color: #E5F1FF;
+        }
+
+        :not(:first-child) {
+            padding-top: .6rem;
+        }
+
+
+    }
+
+    .adContainer {
+        width: 50%;
+    }
+
+    .userContainer {
+        width: 12%;
+    }
+}
