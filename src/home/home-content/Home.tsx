@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { setCategories } from '../../redux-fetching/categoriesSlice';
 import { DataItem, CategoryData } from "../../redux-fetching/interfaces";
 import { setLocationCountries } from "../../redux-fetching/locationCountriesSlice";
+import { setPhotos } from "../../redux-fetching/photoSlice";
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage'; // Import storage methods
 
 const Home = () => {
   const collectionRef = collection(database, "location-countries");
@@ -35,8 +37,20 @@ const Home = () => {
 
       dispatch(setCategories(categoryData));
 
+
+      const storage = getStorage();
+      const photosRef = ref(storage, 'background/');
+      const photoUrls = await listAll(photosRef);
+      const photoData = await Promise.all(photoUrls.items.map(async (photoRef) => {
+        const url = await getDownloadURL(photoRef);
+        return { id: photoRef.name, url };
+      }));
+
+      dispatch(setPhotos(photoData));
+      console.log(photoData);
+
     } catch (error) {
-        console.log(error);
+      console.error(error);
     }
   };
 
@@ -46,11 +60,12 @@ const Home = () => {
 
   return (
     <>
-      <Header/>
-      <HomeContent/>
+      <Header />
+      <HomeContent />
       <Footer />
     </>
   );
 };
 
 export default Home;
+

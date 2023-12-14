@@ -32,6 +32,16 @@
         width: 50%;
     }
 
+    .pannel {
+        width: 650px;
+        height: 360px;
+        vertical-align: middle;
+        align-items: center;
+        justify-content: center;
+        border-radius: .6rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
     .userContainer {
         width: 12%;
     }

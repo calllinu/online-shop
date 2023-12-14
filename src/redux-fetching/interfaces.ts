@@ -10,4 +10,9 @@ export interface DataItem {
     value: string;
     currency: string;
 }
+
+export interface PhotoData {
+  id: string;
+  url: string;
+}
   
