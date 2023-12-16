@@ -5,7 +5,7 @@ import styles from './signUp.module.scss';
 import { Link } from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons';
 import { auth } from "../../firebaseConfig/firebaseConfig";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 
 interface SignUpFormValues {
@@ -49,10 +49,11 @@ function SignUp() {
 const handleSignUp = async (values: SignUpFormValues) => {
   try {
     setLoading(true);
-    const { email, password } = values;
+    const { email, password, name } = values;
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
     if (userCredential.user) {
+      await updateProfile(userCredential.user, { displayName: name });
       await sendEmailVerification(userCredential.user);
       setVerificationSent(true);
       setLoading(false);

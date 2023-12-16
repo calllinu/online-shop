@@ -11,10 +11,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@firebase/auth-types": "^0.12.0",
     "@mantine/core": "^7.1.7",
     "@reduxjs/toolkit": "^2.0.1",
     "antd": "^5.11.0",
-    "firebase": "^10.5.0",
+    "firebase": "^10.7.1",
     "formik": "^2.4.5",
     "react": "^18.2.0",
     "react-icons": "^4.11.0",

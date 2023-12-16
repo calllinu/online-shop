@@ -1,6 +1,6 @@
 .mainContainer {
     width: 97.7%;
-    height: fit-content;
+    height: 52vh;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -9,11 +9,13 @@
     .containerCategories {
         width: 20%;
         padding-right: 1rem;
+        display: flex;
+        flex-direction: column;
 
         .category {
             padding: 7px;
             transition: background-color 0.3s ease;
-            border-radius: .5rem;
+            border-radius: 0.5rem;
             cursor: pointer;
         }
 
@@ -22,27 +24,115 @@
         }
 
         :not(:first-child) {
-            padding-top: .6rem;
+            padding-top: 0.6rem;
         }
-
-
     }
 
     .adContainer {
-        width: 50%;
-    }
-
-    .pannel {
-        width: 650px;
-        height: 360px;
-        vertical-align: middle;
-        align-items: center;
+        display: flex;
         justify-content: center;
-        border-radius: .6rem;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        align-items: center;
+        width: 55%;
+        position: relative;
+
+        .pannel {
+            width: 100%;
+            height: 360px;
+            vertical-align: middle;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.6rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .adText {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+
+            .btn {
+                margin-top: 10px;
+
+            }
+        }
     }
 
     .userContainer {
-        width: 12%;
+        width: 22.7%;
+        padding-left: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .loading {
+            background-color: #E3F0FF;
+            height: 10rem;
+            border-radius: .5rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topContainer {
+            background-color: #E3F0FF;
+            height: 10rem;
+            border-radius: .5rem;
+
+            .info {
+                display: flex;
+                padding: 0.8rem 0.8rem 0.6rem 0.8rem;
+
+                .avatar {
+                    width: 55px;
+                    height: auto;
+                }
+
+                .welcome {
+                    padding-left: 1rem;
+                    display: flex;
+                    align-items: left;
+                    justify-content: center;
+                    flex-direction: column;
+                }
+            }
+
+            .buttons {
+                padding-left: 0.8rem;
+                padding-right: 0.8rem;
+                padding-bottom: .6rem;
+
+                >*:not(:first-child) {
+                    margin-top: 0.5rem;
+                }
+            }
+        }
+
+        .centerContainer {
+            background-color: #F38332;
+            height: 22%;
+            color: white;
+            border-radius: .5rem;
+            padding-left: .8rem;
+            padding-top: .8rem;
+            padding-right: 11rem;
+            font-size: 1rem;
+        }
+
+        .bottomContainer {
+            background-color: #55BDC3;
+            height: 22%;
+            color: white;
+            border-radius: .5rem;
+            padding-left: .8rem;
+            padding-top: .8rem;
+            padding-right: 10rem;
+            font-size: 1rem;
+        }
     }
+
+
 }

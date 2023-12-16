@@ -47,7 +47,6 @@ const Home = () => {
       }));
 
       dispatch(setPhotos(photoData));
-      console.log(photoData);
 
     } catch (error) {
       console.error(error);

@@ -114,7 +114,7 @@ const handleForgotPasswordClose = () => {
           </Form>
         </Formik>
       </div>
-      <ForgotPasswordModal visible={forgotPasswordVisible} onClose={handleForgotPasswordClose} />
+      <ForgotPasswordModal open={forgotPasswordVisible} onClose={handleForgotPasswordClose} />
     </div>
   );
 }

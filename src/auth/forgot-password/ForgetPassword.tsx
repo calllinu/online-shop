@@ -4,11 +4,11 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../firebaseConfig/firebaseConfig";
 
 interface ForgotPasswordModalProps {
-  visible: boolean;
+  open: boolean;
   onClose: () => void;
 }
 
-const ForgotPasswordModal = ({ visible, onClose }: ForgotPasswordModalProps) => {
+const ForgotPasswordModal = ({ open, onClose }: ForgotPasswordModalProps) => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
 
@@ -26,7 +26,7 @@ const ForgotPasswordModal = ({ visible, onClose }: ForgotPasswordModalProps) => 
   };
 
   return (
-    <Modal title="Forgot Password" visible={visible} onCancel={onClose} footer={null}>
+    <Modal title="Forgot Password" open={open} onCancel={onClose} footer={null}>
       <Form onFinish={handleResetPassword}>
         <Form.Item
           label="Email"
