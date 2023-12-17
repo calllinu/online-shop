@@ -5,6 +5,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     height: 24.5rem;
+    z-index: inherit;
 
     @media screen and (max-width: 950px) {
         height: fit-content;
@@ -95,6 +96,7 @@
     }
 
     .userContainer {
+        z-index: 1;
         width: 22.7%;
         padding-left: 1rem;
         display: flex;
@@ -118,6 +120,7 @@
         }
 
         .topContainer {
+            z-index: 1;
             background-color: #E3F0FF;
             height: 10rem;
             border-radius: .5rem;
@@ -127,6 +130,7 @@
             }
 
             .info {
+                z-index: 1;
                 display: flex;
                 padding: 0.8rem 0.8rem 0.6rem 0.8rem;
 
@@ -145,6 +149,7 @@
             }
 
             .buttons {
+                width: 100%;
                 padding-left: 0.8rem;
                 padding-right: 0.8rem;
                 padding-bottom: .6rem;
@@ -156,6 +161,7 @@
         }
 
         .centerContainer {
+            z-index: 1;
             background-color: #F38332;
             height: 25%;
             color: white;
@@ -175,6 +181,7 @@
         }
 
         .bottomContainer {
+            z-index: 1;
             background-color: #55BDC3;
             height: 25%;
             color: white;

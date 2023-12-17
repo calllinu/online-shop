@@ -2,11 +2,11 @@ import Home from './home/home-content/Home'
 import Cart from './components/cart/Cart';
 import Messages from './components/messages/Messages';
 import Orders from './components/orders/Orders';
-//import Profile from './components/profile/Profile';
 import { ConfigProvider} from "antd";
 import {Routes, BrowserRouter, Route } from "react-router-dom";
 import SignUp from './auth/signUp/SignUp';
 import Login from './auth/login/Login';
+import Profile from './components/profile/Profile';
 
 function App() {
 
@@ -27,6 +27,8 @@ function App() {
           <Route path="/orders" element={<Orders/>} />
           <Route path="/signup" element={<SignUp/>} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/profile" element={<Profile/>} />
+          <Route path="/sign-up" element={<SignUp/>} />
         </Routes>
       </BrowserRouter>
       </ConfigProvider>

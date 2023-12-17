@@ -6,6 +6,7 @@ import { RootState } from '../../redux-fetching/store';
 import styles from './latest-container.module.scss';
 import { auth } from './../../firebaseConfig/firebaseConfig';
 import { onAuthStateChanged, User } from 'firebase/auth';
+import { Link } from 'react-router-dom'
 
 function LatestContainer() {
   const categories = useSelector((state: RootState) => state.categories.categories);
@@ -114,16 +115,31 @@ function LatestContainer() {
             <Flex vertical className={styles.buttons}>
               {user ? (
                 <>
-                  <Button type="primary">My Profile</Button>
-                  <Button type="primary" ghost>
-                    Orders
+                  <Button type="primary">
+                    <Link to="/profile">
+                      My Profile
+                    </Link>
                   </Button>
+    
+                  <Button type="primary" ghost>
+                    <Link to="/orders">
+                      Orders
+                    </Link>
+                  </Button>
+                  
                 </>
               ) : (
                 <>
-                  <Button type="primary">Join now</Button>
+                  <Button type="primary">
+                    <Link to="/sign-up">
+                      Join now
+                    </Link>
+                  </Button>
+
                   <Button type="primary" ghost>
-                    Log in
+                    <Link to="/login">
+                      Log in
+                    </Link>
                   </Button>
                 </>
               )}

@@ -4,10 +4,12 @@ import styles from './login.module.scss';
 import { Link } from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons';
 import { auth } from "../../firebaseConfig/firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, User, onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import ForgotPasswordModal from "../forgot-password/ForgetPassword";
+import Profile from "../../components/profile/Profile";
+import { useEffect } from "react";
 
 interface LogInFormValues {
   email: string;
@@ -66,7 +68,19 @@ const handleForgotPasswordClose = () => {
   setForgotPasswordVisible(false);
 };
 
+const [userState, setUserState] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser: User | null) => {
+      setUserState(authUser);
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
+
   return (
+    <>
+    {userState ? <Profile/> : 
     <div className={styles.SignUp}>
       <div className={styles.container}>
         <Formik
@@ -116,6 +130,9 @@ const handleForgotPasswordClose = () => {
       </div>
       <ForgotPasswordModal open={forgotPasswordVisible} onClose={handleForgotPasswordClose} />
     </div>
+}
+    </>
+    
   );
 }
 
