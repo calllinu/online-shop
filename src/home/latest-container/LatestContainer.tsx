@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, Flex, Spin } from 'antd';
+import { Button, Flex, Spin, Row, Col } from 'antd';
 import Avatar from './../../assets/svgs/Avatar.svg';
-import LoadingScreen from './../../loadingScreen/loading-screen';
 import { RootState } from '../../redux-fetching/store';
 import styles from './latest-container.module.scss';
 import { auth } from './../../firebaseConfig/firebaseConfig';
@@ -27,14 +26,18 @@ function LatestContainer() {
   }, [auth]);
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.containerCategories}>
+    <Row gutter={[0, 10]} className={styles.mainContainer}>
+      <Col xl={{order: 1, span: 5}} 
+           lg={{order: 1, span: 4}} 
+           md={{order: 1, span: 5}} 
+           sm={{order: 1, span: 10 }} 
+           xs={{order: 2, span: 24 }} 
+           className={styles.containerCategories}
+      >
         {loadingCat ? (
-          <div className={styles.category}>
-            <div className={styles.loading}>
-              <LoadingScreen />
-            </div>
-          </div>
+          <Flex className={styles.loading}>
+            <Spin/>
+          </Flex>
         ) : (
           categories.map((category) => (
             <div key={category.id} className={styles.category}>
@@ -42,16 +45,26 @@ function LatestContainer() {
             </div>
           ))
         )}
-      </div>
+      </Col>
       {loadingPhoto ? (
-        <div className={styles.adContainer}>
+        <Col xl={{order: 2, span: 12}} 
+             lg={{order: 2, span: 14}} 
+             md={{order: 2, span: 12 }} 
+             sm={{order: 3, span: 24 }} 
+             xs={{order: 3, span: 24 }} 
+             className={styles.adContainer}
+        >
           <div className={styles.loading}>
-            <LoadingScreen />
+            <Spin />
           </div>
-        </div>
+        </Col>
       ) : (
         photos.length > 0 && (
-          <div
+          <Col xl={{order: 2, span: 12}} 
+               lg={{order: 2, span: 14}} 
+               md={{order: 2, span: 12 }} 
+               sm={{order: 3, span: 24 }} 
+               xs={{order: 3, span: 24 }}
             key={photos[Math.floor(Math.random() * photos.length)].id}
             className={styles.adContainer}
           >
@@ -62,21 +75,27 @@ function LatestContainer() {
             />
             <div className={styles.adText}>
               Latest Trending
-              <div className={styles.btn}>
+              <Flex className={styles.btn}>
                 <Button type="primary" ghost>Learn More</Button>
-              </div>
+              </Flex>
             </div>
-          </div>
+          </Col>
         )
       )}
-      <div className={styles.userContainer}>
+    <Col xl={{order: 3, span: 7}} 
+         lg={{order: 3, span: 6}}  
+         md={{order: 3, span: 7 }} 
+         sm={{order: 2, span: 14 }} 
+         xs={{order: 1, span: 24 }} 
+         className={styles.userContainer}
+    >
         {loading ? (
           <Flex className={styles.loading}>
             <Spin/>
           </Flex>
         ) : (
-          <div className={styles.topContainer}>
-            <div className={styles.info}>
+          <Col className={styles.topContainer}>
+            <Col  className={styles.info}>
               <img src={Avatar} className={styles.avatar} alt="User Avatar" />
               <div className={styles.welcome}>
                 {user ? (
@@ -91,7 +110,7 @@ function LatestContainer() {
                   </>
                 )}
               </div>
-            </div>
+            </Col>
             <Flex vertical className={styles.buttons}>
               {user ? (
                 <>
@@ -109,16 +128,16 @@ function LatestContainer() {
                 </>
               )}
             </Flex>
-          </div>
+          </Col>
         )}
-        <div className={styles.centerContainer}>
+        <Col className={styles.centerContainer}>
           Get US $10 off with a new supplier
-        </div>
-        <div className={styles.bottomContainer}>
+        </Col>
+        <Col className={styles.bottomContainer}>
           Send quotes with supplier preferences
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Col>
+    </Row>
   );
 }
 
