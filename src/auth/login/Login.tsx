@@ -4,12 +4,12 @@ import styles from './login.module.scss';
 import { Link } from 'react-router-dom'
 import { UserOutlined } from '@ant-design/icons';
 import { auth } from "../../firebaseConfig/firebaseConfig";
-import { signInWithEmailAndPassword, User, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import ForgotPasswordModal from "../forgot-password/ForgetPassword";
-import Profile from "../../components/profile/Profile";
-import { useEffect } from "react";
+import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
+
 
 interface LogInFormValues {
   email: string;
@@ -34,7 +34,7 @@ const SignUpSchema = Yup.object().shape({
 });
 
 
-function SignUp() {
+function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -52,13 +52,22 @@ function SignUp() {
         setLoading(false);
         return;
       }
-  
-      navigate('/');
+
+      const db = getFirestore();
+      const usersCollection = collection(db, 'users');
+      const userDoc = await getDoc(doc(usersCollection, user.uid));
+
+      if(userDoc.exists() && userDoc.data().isAdmin){
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
+
     } catch (error) {
       setLoginError('Invalid email or password');
       setLoading(false);
-  }
-};
+    }
+  };
 
 const handleForgotPasswordClick = () => {
   setForgotPasswordVisible(true);
@@ -68,19 +77,8 @@ const handleForgotPasswordClose = () => {
   setForgotPasswordVisible(false);
 };
 
-const [userState, setUserState] = useState<User | null>(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (authUser: User | null) => {
-      setUserState(authUser);
-    });
-
-    return () => unsubscribe();
-  }, [auth]);
-
   return (
     <>
-    {userState ? <Profile/> : 
     <div className={styles.SignUp}>
       <div className={styles.container}>
         <Formik
@@ -93,9 +91,9 @@ const [userState, setUserState] = useState<User | null>(null);
         >
           <Form className={styles.form}>
             <div className={styles.row}>
-            <div className={styles.UserIcon}>
-              <UserOutlined className={styles.icon}/>
-            </div>
+              <div className={styles.UserIcon}>
+                <UserOutlined className={styles.icon}/>
+              </div>
             </div>
 
             <div className={styles.formGroup}>
@@ -130,10 +128,9 @@ const [userState, setUserState] = useState<User | null>(null);
       </div>
       <ForgotPasswordModal open={forgotPasswordVisible} onClose={handleForgotPasswordClose} />
     </div>
-}
     </>
     
   );
 }
 
-export default SignUp;
+export default Login;

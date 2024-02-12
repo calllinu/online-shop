@@ -5,7 +5,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     height: 24.5rem;
-    z-index: inherit;
+    z-index: 1;
 
     @media screen and (max-width: 950px) {
         height: fit-content;
@@ -16,7 +16,6 @@
     }
 
     .containerCategories {
-        width: 20%;
         padding-right: 1rem;
         display: flex;
         flex-direction: column;
@@ -198,9 +197,6 @@
             @media screen and (max-width: 767px) {
                 height: 20%;
             }
-
         }
     }
-
-
 }

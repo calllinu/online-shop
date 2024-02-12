@@ -1,5 +1,7 @@
 import { auth } from './../../firebaseConfig/firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import { User, onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 
 function Profile() {
   const navigate = useNavigate();
@@ -7,17 +9,25 @@ function Profile() {
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      navigate('/');
     } catch (error) {
       console.error('Error logging out:', (error as Error).message);
     }
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (authUser: User | null) => {
+      if (!authUser) {
+        navigate('/login');
+      }
+    });
+    return () => unsubscribe();
+  }, []); 
+
   return (
-    <div>
+    <>
       <div>profile</div>
       <button onClick={handleLogout}>Logout</button>
-    </div>
+    </>
   );
 }
 

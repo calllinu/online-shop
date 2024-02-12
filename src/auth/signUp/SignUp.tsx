@@ -7,6 +7,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { auth } from "../../firebaseConfig/firebaseConfig";
 import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
+import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
 
 interface SignUpFormValues {
   name: string;
@@ -46,24 +47,37 @@ function SignUp() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-const handleSignUp = async (values: SignUpFormValues) => {
-  try {
-    setLoading(true);
-    const { email, password, name } = values;
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-
-    if (userCredential.user) {
-      await updateProfile(userCredential.user, { displayName: name });
-      await sendEmailVerification(userCredential.user);
-      setVerificationSent(true);
+  const handleSignUp = async (values: SignUpFormValues) => {
+    try {
+      setLoading(true);
+      const { email, password, name } = values;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  
+      if (userCredential.user) {
+        await updateProfile(userCredential.user, { displayName: name });
+        await sendEmailVerification(userCredential.user);
+  
+        const db = getFirestore();
+        const usersCollection = collection(db, 'users');
+        const userDocRef = doc(usersCollection, userCredential.user.uid); 
+        await setDoc(userDocRef, {
+          email: userCredential.user.email,
+          name: name,
+          isAdmin: false,
+        });
+  
+        setVerificationSent(true);
+        setLoading(false);
+      }
+  
+      navigate('/login');
+    } catch (error) {
+      setVerificationSent(false);
       setLoading(false);
+      console.error('Error during sign up:', error);
     }
-    navigate('/login');
-  } catch (error) {
-    setVerificationSent(false);
-    setLoading(false);
-  }
-};
+  };
+  
   
   return (
     <div className={styles.SignUp}>

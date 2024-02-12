@@ -46,62 +46,7 @@
 		}
 	}
 
-	.mobileSidebar {
-		width: 60%;
-		height: 100%;
-		background-color: white;
-		z-index: 9999;
-		position: fixed;
-		color: black;
-		transition: left 1s ease-in;
-		position: absolute;
 
-		.mobileFirstContainer {
-			background-color: #C8C8C8;
-			padding-left: 1.5rem;
-			padding-top: 1.5rem;
-			padding-bottom: 1.5rem;
-
-			.profileIcon {
-				width: 100px;
-				height: auto;
-			}
-
-			.userActions {
-				display: flex;
-				gap: .4rem;
-			}
-		}
-
-		.mobileSecondContainer {
-			background-color: white;
-			color: black;
-
-			.separator {
-				padding-left: 3.5rem;
-				padding-top: 1.8rem;
-			}
-
-			.separatorLine {
-				width: 90%;
-				display: flex;
-			}
-
-			.home {
-				display: flex;
-				padding-left: 1.5rem;
-				padding-top: 1.5rem;
-				align-items: center;
-				gap: .4rem;
-
-				.textHome,
-				.mobileIcon {
-					display: flex;
-					align-items: center;
-				}
-			}
-		}
-	}
 }
 
 .headerTop {

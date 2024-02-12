@@ -1,20 +1,27 @@
-import HomeContent from "../../components/home-content/home-content";
-import Footer from "../footer/footer";
-import Header from "../header/header";
-import { useEffect } from "react";
+import HomeContent from "../components/home/home-content";
+import Footer from "./footer/footer";
+import Header from "./header/header";
+import { useEffect, useState } from "react";
 import { getDocs, collection } from 'firebase/firestore';
-import { database } from '../../firebaseConfig/firebaseConfig';
+import { database } from '../firebaseConfig/firebaseConfig';
 import { useDispatch } from 'react-redux';
-import { setCategories } from '../../redux-fetching/categoriesSlice';
-import { DataItem, CategoryData } from "../../redux-fetching/interfaces";
-import { setLocationCountries } from "../../redux-fetching/locationCountriesSlice";
-import { setPhotos } from "../../redux-fetching/photoSlice";
-import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage'; // Import storage methods
+import { setCategories } from '../redux-fetching/categoriesSlice';
+import { DataItem, CategoryData } from "../redux-fetching/interfaces";
+import { setLocationCountries } from "../redux-fetching/locationCountriesSlice";
+import { setPhotos } from "../redux-fetching/photoSlice";
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage'; 
+import MobileSidebar from "./mobile-sidebar/MobileSidebar";
 
 const Home = () => {
   const collectionRef = collection(database, "location-countries");
   const collectionCat = collection(database, "categories");
   const dispatch = useDispatch();
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   const fetchData = async () => {
     try {
@@ -59,7 +66,8 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <MobileSidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)}  />
+      <Header toggleSidebar={toggleSidebar} />
       <HomeContent />
       <Footer />
     </>
