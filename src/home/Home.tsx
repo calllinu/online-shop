@@ -64,6 +64,7 @@ const Home = () => {
     fetchData();
   }, [dispatch]);
 
+
   return (
     <>
       <MobileSidebar isOpen={isSidebarOpen} closeSidebar={() => setIsSidebarOpen(false)}  />

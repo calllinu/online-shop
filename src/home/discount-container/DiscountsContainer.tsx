@@ -50,6 +50,7 @@ export default function DiscountsContainer() {
   useEffect(() => {
     fetchDiscountedWatches();
   }, []);
+  
   return (
     <Row gutter={[0, 20]} className={styles.discounts}>
         <Col xl={{span: 5}} className={styles.text}>

@@ -8,7 +8,6 @@ import Profile from './components/profile/Profile';
 import { ConfigProvider} from "antd";
 import {Routes, BrowserRouter, Route } from "react-router-dom";
 import AdminRoute from './routes/protected-routes';
-import Admin from './admin/admin-pannel';
 
 function App() {
 
@@ -33,7 +32,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp/>} />
           <Route
             path="/admin"
-            element={<AdminRoute location="/admin" element={<Admin/>} />}
+            element={<AdminRoute/>}
           />
         </Routes>
       </BrowserRouter>

@@ -7,13 +7,13 @@
         opacity: 1;
         visibility: visible;
         transform: translateX(0);
-        transition: ease 1s;
+        transition: ease .7s;
 
         &.inactive {
             opacity: 0;
             visibility: hidden;
             transform: translateX(-20px);
-            transition: ease 1s;
+            transition: ease .7s;
         }
 
         .mobileFirstContainer {

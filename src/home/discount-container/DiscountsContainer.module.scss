@@ -25,10 +25,6 @@
         justify-content: center;
         align-items: center;
         flex: 100%;
-
-        @media screen and (max-width: 1200px) {
-            height: 100%;
-        }
     }
 
     .text:first-child {
@@ -55,6 +51,14 @@
         flex-direction: column;
         flex-shrink: 0;
         height: 100%;
+        opacity: 0;
+        animation: fadeIn 3s ease forwards;
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
 
         .productImg {
             width: 8rem;

@@ -6,10 +6,12 @@ import { UserOutlined } from '@ant-design/icons';
 import { auth } from "../../firebaseConfig/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ForgotPasswordModal from "../forgot-password/ForgetPassword";
 import { getFirestore, collection, getDoc, doc } from "firebase/firestore";
-
+import { setUser } from "../../redux-fetching/userSlice";
+import { database } from "../../firebaseConfig/firebaseConfig";
+import { useDispatch } from "react-redux";
 
 interface LogInFormValues {
   email: string;
@@ -39,6 +41,7 @@ function Login() {
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState<string | null>(null);
   const [forgotPasswordVisible, setForgotPasswordVisible] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLogIn = async (values: LogInFormValues) => {
     try {
@@ -76,6 +79,29 @@ const handleForgotPasswordClick = () => {
 const handleForgotPasswordClose = () => {
   setForgotPasswordVisible(false);
 };
+
+useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      const db = collection(database, 'users');
+      const userDocRef = doc(db, user.uid);
+
+      try {
+        const docSnapshot = await getDoc(userDocRef);
+        const isAdmin = docSnapshot.exists() && docSnapshot.data()?.isAdmin == 1;
+
+        dispatch(setUser({ isAdmin, isSignedIn: true }));
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      dispatch(setUser({ isAdmin: false, isSignedIn: false }));
+    }
+    
+  });
+
+  return () => unsubscribe();
+}, [dispatch]);
 
   return (
     <>
