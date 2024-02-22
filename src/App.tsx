@@ -7,7 +7,6 @@ import Login from './auth/login/Login';
 import Profile from './components/profile/Profile';
 import { ConfigProvider} from "antd";
 import {Routes, BrowserRouter, Route } from "react-router-dom";
-import AdminRoute from './routes/protected-routes';
 
 function App() {
 
@@ -30,10 +29,6 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/sign-up" element={<SignUp/>} />
-          <Route
-            path="/admin"
-            element={<AdminRoute/>}
-          />
         </Routes>
       </BrowserRouter>
     </ConfigProvider>
