@@ -1,0 +1,164 @@
+.footer {
+    display: grid;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    width: 100%;
+    height: auto;
+    padding-top: 2.5rem;
+    z-index: 1;
+
+    .row {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .navLink {
+        text-decoration: none;
+        color: black;
+        display: flex;
+        align-items: center;
+        vertical-align: center;
+        justify-content: flex-start;
+
+        :active {
+            color: #8CB7F5;
+        }
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    .footerTop {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 5rem;
+        padding-right: 5rem;
+        padding-bottom: 3rem;
+        height: auto;
+
+        @media screen and (max-width: 576px) {
+            padding-left: 0rem;
+            padding-right: 4rem;
+        }
+
+        .utils {
+            font-weight: bold;
+        }
+
+        .footerTopColumn1st {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            column-gap: 2px;
+
+            @media screen and (max-width: 1200px) {
+                padding-left: 7rem;
+                padding-right: 4rem;
+            }
+
+            @media screen and (max-width: 576px) {
+                justify-content: flex-start;
+                padding-left: 3.5rem;
+            }
+
+            @media screen and (max-width: 350px) {
+                padding-left: 1rem;
+            }
+
+            @media screen and (max-width: 350px) {
+                padding-left: 0rem;
+            }
+
+            .mainIcon {
+                color: #0D6EFD;
+                font-size: 2rem;
+            }
+
+            .icons {
+                padding-top: .4rem;
+                display: flex;
+                gap: .7rem;
+
+                .socialIcons {
+                    color: #9d9898;
+                    font-size: 1.3rem;
+                }
+            }
+
+            .download {
+                width: 6rem;
+            }
+        }
+
+        .footerTopOthers {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 2;
+            flex-basis: 200;
+
+            @media screen and (max-width: 576px) {
+                justify-content: flex-start;
+                padding-left: 4rem;
+            }
+
+            @media screen and (max-width: 350px) {
+                padding-left: 1rem;
+            }
+
+            .getApp {
+                padding-top: .5rem;
+            }
+        }
+    }
+
+    .footerBottom {
+        padding-bottom: .4rem;
+        padding-top: .4rem;
+        flex-wrap: wrap;
+        background-color: #d8d5d5;
+        height: auto;
+        display: flex;
+
+        .BottomColumn1st {
+            display: flex;
+            justify-content: flex-start;
+            padding-left: 4.7rem;
+            align-items: center;
+
+            @media screen and (max-width: 576px) {
+                justify-content: center;
+                padding: 0rem;
+            }
+        }
+
+        .BottomColumn2nd {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 8rem;
+
+            @media screen and (max-width: 576px) {
+                justify-content: center;
+                padding: 0;
+                padding-top: .5rem;
+            }
+
+            .location {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+
+                .flagIcon {
+                    height: 13px;
+                    width: 20px;
+                    cursor: pointer
+                }
+            }
+
+        }
+    }
+}

@@ -1,0 +1,65 @@
+    .mobileSidebar {
+        width: 60%;
+        background-color: white;
+        z-index: 9999;
+        color: black;
+        position: absolute;
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        transition: ease .7s;
+
+        &.inactive {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-20px);
+            transition: ease .7s;
+        }
+
+        .mobileFirstContainer {
+            background-color: #C8C8C8;
+            padding-left: 1.5rem;
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-radius: .8rem;
+
+            .profileIcon {
+                width: 100px;
+                height: auto;
+            }
+
+            .userActions {
+                display: flex;
+                gap: .4rem;
+            }
+        }
+
+        .mobileSecondContainer {
+            background-color: white;
+            color: black;
+
+            .separator {
+                padding-left: 3.5rem;
+                padding-top: 1.8rem;
+            }
+
+            .separatorLine {
+                width: 90%;
+                display: flex;
+            }
+
+            .home {
+                display: flex;
+                padding-left: 1.5rem;
+                padding-top: 1.5rem;
+                align-items: center;
+                gap: .4rem;
+
+                .textHome,
+                .mobileIcon {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
