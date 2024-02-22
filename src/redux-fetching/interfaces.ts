@@ -1,7 +1,10 @@
+import firebase from "firebase/compat/app";
+
 export interface CategoryData {
     id: string;
     name: string;
     subcategories?: SubcategoryData[];
+    products: Product[];
 }
 
 export interface SubcategoryData {
@@ -32,5 +35,17 @@ export interface PhotoData {
 
 export interface ResolvedCategoryData extends CategoryData {
   subcategories: CategoryData[];
+}
+
+
+export interface Product {
+  categoryID: string;
+  color: string;
+  discount: number;
+  name: string;
+  photo: firebase.firestore.DocumentReference;
+  price: string;
+  series: string;
+  size: string;
 }
   

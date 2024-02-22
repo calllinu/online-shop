@@ -38,12 +38,10 @@ export default function DiscountsContainer() {
         })
       );
       
-      const watchesData = await Promise.all(watchesDataPromises);
-      setDiscountedWatches(watchesData);
+      setDiscountedWatches(watchesDataPromises);
+      setDiscountedWatchesLoading(false);
     } catch (error) {
       console.error('Error fetching discounted watches:', error);
-    } finally {
-      setDiscountedWatchesLoading(false); 
     }
   };
 

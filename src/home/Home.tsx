@@ -25,7 +25,7 @@ const Home = () => {
 
   const fetchData = async () => {
     try {
-      const [locationResponse, categoryResponse] = await Promise.all([
+      const [locationResponse, categoryResponse ] = await Promise.all([
         getDocs(collectionRef),
         getDocs(collectionCat),
       ]);
@@ -44,7 +44,6 @@ const Home = () => {
 
       dispatch(setCategories(categoryData));
 
-
       const storage = getStorage();
       const photosRef = ref(storage, 'background/');
       const photoUrls = await listAll(photosRef);
@@ -58,6 +57,8 @@ const Home = () => {
     } catch (error) {
       console.error(error);
     }
+
+    
   };
 
   useEffect(() => {

@@ -6,7 +6,7 @@ import { RootState } from '../../redux-fetching/store';
 import { auth } from '../../firebaseConfig/firebaseConfig';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { Link } from 'react-router-dom'
-import styles from './MainContainer.module.scss'
+import styles from './LatestContainer.module.scss'
 
 function LatestContainer() {
   const categories = useSelector((state: RootState) => state.categories.categories);
