@@ -233,9 +233,10 @@
 			position: relative;
 
 			&:after {
+				border-radius: .8rem;
 				content: "";
 				position: absolute;
-				background-color: gray;
+				background-color: rgb(183, 181, 181);
 				height: 2px;
 				width: 0;
 				left: 50%;

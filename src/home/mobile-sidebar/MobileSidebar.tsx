@@ -17,7 +17,7 @@ import { useClickAway } from 'react-use';
 interface SidebarProps {
     isOpen: boolean;
     closeSidebar : () => void;
-  }
+}
 
 function MobileSidebar({isOpen, closeSidebar} : SidebarProps) {
     const wrapperRef = useRef<HTMLDivElement | null>(null);

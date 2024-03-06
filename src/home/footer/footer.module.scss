@@ -34,8 +34,8 @@
     .footerTop {
         display: flex;
         flex-wrap: wrap;
-        padding-left: 5rem;
-        padding-right: 5rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
         padding-bottom: 3rem;
         height: auto;
 
@@ -113,20 +113,22 @@
                 padding-top: .5rem;
             }
         }
+
     }
 
     .footerBottom {
-        padding-bottom: .4rem;
-        padding-top: .4rem;
+        padding-bottom: 1.2rem;
+        padding-top: 1.2rem;
         flex-wrap: wrap;
         background-color: #d8d5d5;
         height: auto;
         display: flex;
+        padding-left: 4rem;
+        padding-right: 4rem;
 
         .BottomColumn1st {
             display: flex;
             justify-content: flex-start;
-            padding-left: 4.7rem;
             align-items: center;
 
             @media screen and (max-width: 576px) {
@@ -139,7 +141,6 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            padding-right: 8rem;
 
             @media screen and (max-width: 576px) {
                 justify-content: center;

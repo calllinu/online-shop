@@ -15,13 +15,8 @@ import MobileSidebar from "./mobile-sidebar/MobileSidebar";
 const Home = () => {
   const collectionRef = collection(database, "location-countries");
   const collectionCat = collection(database, "categories");
-  const dispatch = useDispatch();
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const dispatch = useDispatch();
 
   const fetchData = async () => {
     try {
@@ -57,13 +52,15 @@ const Home = () => {
     } catch (error) {
       console.error(error);
     }
-
-    
   };
 
   useEffect(() => {
     fetchData();
   }, [dispatch]);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
 
   return (

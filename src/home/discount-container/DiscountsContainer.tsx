@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Spin, Row, Col } from 'antd';
 import styles from './DiscountsContainer.module.scss';
-import { storage } from './../../firebaseConfig/firebaseConfig';
+
 import Countdown from '../countdown/countdown';
-import { getDocs, collection, query, where, limit } from 'firebase/firestore';
+import { getDocs, collection, query, limit } from 'firebase/firestore';
 import { database } from './../../firebaseConfig/firebaseConfig'; 
 import { DiscountWatches } from '../../redux-fetching/interfaces';
-import { getDownloadURL, ref } from 'firebase/storage';
+
 
 export default function DiscountsContainer() {
   const [discountedWatchesLoading, setDiscountedWatchesLoading] = useState(true);
@@ -17,26 +17,19 @@ export default function DiscountsContainer() {
       const productsRef = collection(database, 'products');
       const q = query(
         productsRef,
-        where('categoryID', '==', 'YmZFoJ3rtvzxtFct6z3U'),
-        where('discount', '>', 0),
         limit(6)
       );
 
       const querySnapshot = await getDocs(q);
       const watchesDataPromises: DiscountWatches[] = await Promise.all(
-        querySnapshot.docs.map(async (doc) => {
-          const photoRef = doc.data().photo.path;
-          const photoURL = await getDownloadURL(ref(storage, photoRef));
-          
-          return {
-            id: doc.id,
-            name: doc.data().name,
-            discount: doc.data().discount,
-            series: doc.data().series,
-            photo: photoURL,
-          };
-        })
-      );
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name,
+          discount: doc.data().discount,
+          series: doc.data().series,
+          photo: doc.data().photo, 
+        }))
+      );  
       
       setDiscountedWatches(watchesDataPromises);
       setDiscountedWatchesLoading(false);
@@ -65,7 +58,7 @@ export default function DiscountsContainer() {
         ) : (
           discountedWatches.map((watch) => (
             <Col xl={{span: 3}} key={watch.id} className={styles.item}>
-              <img src={watch.photo} alt="Product" className={styles.productImg} />
+              <img src={watch.photo} className={styles.productImg} />
               <Col className={styles.itemName}>
                 {watch.name} {watch.series}
               </Col>

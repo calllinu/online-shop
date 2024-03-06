@@ -28,7 +28,14 @@ const Header = ({ toggleSidebar } : HeaderProps) => {
   const [userLocation, setUserLocation] = useState<string>('');
   const [selectedCurrency, setSelectedCurrency] = useState<string | null>(null);
   const uniqueCurrencies = [...new Set(data.map((item) => item.currency))]
-  .filter((currency) => currency);
+                          .filter((currency) => currency);
+  const items = [
+    { text: 'Hot offers', order: 2 },
+    { text: 'Gift boxes', order: 3 },
+    { text: 'Projects', order: 4 },
+    { text: 'Menu item', order: 5 },
+    { text: 'Help', order: 6 },
+  ];
 
   const getUserLocation = async () => {
     try {
@@ -150,11 +157,11 @@ const Header = ({ toggleSidebar } : HeaderProps) => {
               <div className={styles.categoriesItems}>All Categories</div>
             </div>
             </Col>
-            <Col xl={{span: 3.3, order: 2}}><div className={styles.categoriesItems}>Hot offers</div></Col>
-            <Col xl={{span: 3.3, order: 3}}><div className={styles.categoriesItems}>Gift boxes</div></Col>
-            <Col xl={{span: 3.3, order: 4}}><div className={styles.categoriesItems}>Projects</div></Col>
-            <Col xl={{span: 3.3, order: 5}}><div className={styles.categoriesItems}>Menu item</div></Col>
-            <Col xl={{span: 3.3, order: 6}}><div className={styles.categoriesItems}>Help</div></Col>    
+            {items.map((item, index) => (
+              <Col key={index} xl={{ span: 3.3, order: item.order }}>
+                <div className={styles.categoriesItems}>{item.text}</div>
+              </Col>
+            ))} 
           </div>
           <div className={styles.headerBottomRight}>
           <Row justify="center">
